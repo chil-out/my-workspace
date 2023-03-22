@@ -16,6 +16,11 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "raft-otel-web": [
+        "dist/raft-otel-web"
+      ]
+    },
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
