@@ -1,11 +1,4 @@
-import {
-  ClassProvider,
-  ConstructorProvider,
-  ExistingProvider,
-  FactoryProvider,
-  InjectionToken,
-  ValueProvider,
-} from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { DiagLogger, DiagLogLevel } from '@opentelemetry/api';
 import { InstrumentationOption } from '@opentelemetry/instrumentation';
 import { CustomSpan } from './custom-span.interface';
@@ -150,35 +143,3 @@ export const OTEL_CUSTOM_SPAN = new InjectionToken<CustomSpan>(
 export const OTEL_INSTRUMENTATION_PLUGINS = new InjectionToken<
   InstrumentationOption[]
 >('otelcol.instrumentation.plugins');
-
-export const defineConfigProvider = (
-  config: OpenTelemetryConfig | null | undefined,
-  configProvider:
-    | ValueProvider
-    | ClassProvider
-    | ConstructorProvider
-    | ExistingProvider
-    | FactoryProvider
-):
-  | ValueProvider
-  | ClassProvider
-  | ConstructorProvider
-  | ExistingProvider
-  | FactoryProvider => {
-  if (config) {
-    configProvider = { provide: OTEL_CONFIG, useValue: config };
-  } else {
-    if (configProvider) {
-      if (configProvider.provide !== OTEL_CONFIG) {
-        throw new Error(
-          `Configuration error. token must be : ${OTEL_CONFIG} ,  your token value is : ${configProvider.provide}`
-        );
-      }
-    } else {
-      throw new Error(
-        `Configuration error. you must specify a configuration in config or configProvider`
-      );
-    }
-  }
-  return configProvider;
-};

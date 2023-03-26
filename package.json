@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build raft-otel-web",
+    "build": "ng build raft-otel-web --configuration production",
     "watch": "ng build raft-otel-web --watch --configuration development",
     "test": "ng test"
   },

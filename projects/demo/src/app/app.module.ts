@@ -1,12 +1,9 @@
-import { RaftOtelWebModule } from './../../../raft-otel-web/src/lib/raft-otel-web.module';
+import { RaftOtelWebModule } from 'projects/raft-otel-web/src/lib/raft-otel-web.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import {
-  OpenTelemetryConfig,
-  OTEL_CONFIG,
-} from 'projects/raft-otel-web/src/lib/utils/otel-config';
+import { OpenTelemetryConfig } from 'projects/raft-otel-web/src/lib/utils/otel-config';
 import { INGXLoggerConfig, NgxLoggerLevel } from 'ngx-logger';
 import { DiagLogLevel } from '@opentelemetry/api';
 
@@ -44,10 +41,7 @@ export const environment: IEnvironment = {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RaftOtelWebModule.forRoot(environment.openTelemetryConfig, {
-      provide: OTEL_CONFIG,
-      useFactory: () => environment.openTelemetryConfig,
-    }),
+    RaftOtelWebModule.forRoot(environment.openTelemetryConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],

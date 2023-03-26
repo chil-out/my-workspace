@@ -1,21 +1,11 @@
 import {
-  ClassProvider,
-  ConstructorProvider,
-  ExistingProvider,
-  FactoryProvider,
   ModuleWithProviders,
   NgModule,
   Optional,
   SkipSelf,
-  ValueProvider,
 } from '@angular/core';
-import { RaftOtelTracerService } from './service/raft-otel-tracer.service';
-import { defineConfigProvider, OpenTelemetryConfig } from './utils/otel-config';
-@NgModule({
-  declarations: [],
-  imports: [],
-  exports: [],
-})
+import { OpenTelemetryConfig, OTEL_CONFIG } from './utils/otel-config';
+@NgModule({})
 export class RaftOtelWebModule {
   constructor(@Optional() @SkipSelf() parentModule: RaftOtelWebModule) {
     if (parentModule) {
@@ -26,19 +16,11 @@ export class RaftOtelWebModule {
   }
 
   public static forRoot(
-    config: OpenTelemetryConfig | null | undefined,
-    configProvider:
-      | ValueProvider
-      | ClassProvider
-      | ConstructorProvider
-      | ExistingProvider
-      | FactoryProvider
+    config: OpenTelemetryConfig
   ): ModuleWithProviders<RaftOtelWebModule> {
-    configProvider = defineConfigProvider(config, configProvider);
-
     return {
       ngModule: RaftOtelWebModule,
-      providers: [configProvider, RaftOtelTracerService],
+      providers: [{ provide: 'opentelemetry.config', useValue: config }],
     };
   }
 }
